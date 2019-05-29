@@ -1,175 +1,107 @@
-/*
-import random
-import numpy as np
+// I'm finding Google's style guide for JavaScript somewhat helpful
+// https://google.github.io/styleguide/javascriptguide.xml#Naming
+// broadly speaking: use semicolons, and use camelCase
 
-game state struct
-- players: player struct
-- turn: player, 0 to 5, whose turn it is
-*/
 
-/*
- * State class
- * - players: set of player structs
- * - turn:
- * - bingosT1:
- * - bingosT2:
+/* State
+ * - players: should be a list of 6 "Player" classes
+ * - turn: a number from 0-5, representing player
+ * - bingosT1: counts team 1 points
+ * - bingosT2: counts team 2 points
  */
 class State {
     constructor() {
-        players = new Player(/*TODO*/)
-        // TODO: other code
+        players = new Player(/*TODO*/);
+        // TODO: the code for new player and the randomizer
 
-        this.players = players
-        this.turn = 0
-        this.bingosT1 = 0
-        this.bingosT2 = 0
+        this.players = players;
+        this.turn = 0;
+        this.bingosT1 = 0;
+        this.bingosT2 = 0;
     }
     
-    play() {
-
-    }
-    
-    call() {
+    // takes card out of target's hand and puts it in asker's hand
+    // else returns print statements saying why you can't do that
+    play(self, asker, target, card) {
 
     }
     
-    terminate() {
+    // we never finished defining this in the python script
+    call(self, asker, set) {
+        return true;
+    }
+    
+    // returns false if bingosT1 < 5 AND bingosT2 < 5
+    terminate(self) {
 
     }
 
-    bingo() {
+    // removes all cards in a set if one team gets it
+    // adds a point to bingos scorecard
+    bingo(self) {
 
     }
 
-    printCards() {
+    // for loop; prints everybody's cards for debugging purposes
+    printCards(self) {
 
     }
 }
-/*
-class State:
-    def __init__(self):
-        perm = np.random.permutation(53)
-        players = []
-        for i in range(6):
-            players.append(Player(i,set(perm[(9*i):9*i+8])))
-            
-        self.players = players
-        self.turn = 0
-        self.t1_bingos = 0
-        self.t2_bingos = 0
 
-    def play(self, asker, target, card):
-        if asker.team == target.team:
-            print("You can't ask someone on your own team!")
-            return False
-            
-        if (card//6) in asker.valid_sets:
-            if card in target.cards:
-                target.card_remove(card)
-                asker.card_add(card)
-                return True
-            else: # changes player turn
-                self.turn = target.id
-                print("Go fish! :^)")
-                return False
-        else:
-            print("You can't ask for that card!")
-            return False
-    
-    def call(self,asker,set):
-        # for now we are just using bingo system instead of calling sets
-        return True
-        
-    def terminate(self):
-        if (self.t1_bingos < 5) and (self.t2_bingos < 5):
-            return False
-        return True
-    
-    def bingo(self):
-        team1 = set()
-        team2 = set()
-        for player in self.players:
-            if player.id < 3:
-                team1 = team1.union(player.valid_sets)
-            else:
-                team2 = team2.union(player.valid_sets)
-                # team A has 0, 1, 2, 3, 5
-                # team B has 1, 2, 3, 4, 5
-
-        t1x = team1.difference(team2)
-        t2x = team2.difference(team1)
-
-        self.t1_bingos += len(t1x)
-        self.t2_bingos += len(t2x)
-
-        print("Removed sets from Team 1:", t1x)
-        print("Removed sets from Team 2:", t2x)
-        
-        for player in self.players:
-            if player.id < 3:
-                player.set_remove(t1x)
-            else:
-                player.set_remove(t2x)
-        return
-
-    def print_cards(self):
-        for player in self.players:
-            print(player.id, ":", player.cards)
-        return
-*/
-
+/* Player
+ * - id: a number that represents which player (player can be 0-5)
+ * - cards: a set that represents held cards (cards can be 0-53)
+ * - validSets: a set that represents helds sets (sets can be 0-8)
+ * - team: a number that represents which team (team can be 0 or 1)
+ */
 class Player {
-    constructor() {
-        this.id = 0//player_id
-        this.cards = 0//set(cards)
-        this.valid_sets = 0//self.valid_asks()
-        this.team = Math.floor(player_id/3)  
+    constructor(playerID, cards) {
+        this.id = playerID;
+        this.cards = new Set([cards]);
+        this.validSets = validAsks;
+        this.team = Math.floor(playerID/3);
+    }
+
+    validAsks(self) {
+
+    }
+
+    hasCard(self, card) {
+
+    }
+
+    cardAdd(self, card){
+
+    }
+
+    cardRemove(self, card) {
+
+    }
+
+    setRemove(self, cardSet) {
+
     }
 }
+
+game = new State();
+
+while (!game.terminate()) {
+    console.log("Player %d's turn", game.turn());
+    game.printCards();
+
+    while (condition) {
+        //TODO: figure out how inputs work
+    }
+
+    if (game.play(game.players[game.turn], game.players[query], card)) {
+        game.bingo();
+    }
+
+    console.log("Team 1 has %d sets and Team 2 has %d sets.", 
+                game.t1_bingos, game.t2_bingos);
+
+}
 /*
-
-  
-
-""" player struct
-- id: int from 0-5 (six players)
-- cards: set of cards from 0-53
-- valid_sets: set from 0-8 (nine sets)
-- team: either 0 or 1
-"""
-class Player:
-    def __init__(self,player_id,cards):
-        self.id = player_id
-        self.cards = set(cards)
-        self.valid_sets = self.valid_asks()
-        self.team = player_id // 3
-
-    def valid_asks(self):
-        valid = set()
-        for card in self.cards:
-            valid.add(card // 6)
-        return valid
-    
-    def has_card(self,card):
-        if(card in self.cards):
-            return True
-        return False
-
-    def card_add(self,card):
-        self.cards.add(card)
-
-    def card_remove(self,card):
-        self.cards.remove(card)
-        self.valid_sets = self.valid_asks()
-
-    def set_remove(self, card_set):
-        temp = set()
-        for card in self.cards:
-            if (card//6) in card_set:
-                temp.add(card)
-    
-        self.cards.difference_update(temp)
-        self.valid_sets = self.valid_asks()
-
 
 # int main()
 # {
