@@ -15,7 +15,7 @@ game state struct
  * - bingosT2:
  */
 class State {
-    constructor(players, turn, bingosT1, bingosT2) {
+    constructor() {
         players = new Player(/*TODO*/)
         // TODO: other code
 
@@ -118,7 +118,14 @@ class State:
         return
 */
 
-
+class Player {
+    constructor() {
+        this.id = 0//player_id
+        this.cards = 0//set(cards)
+        this.valid_sets = 0//self.valid_asks()
+        this.team = Math.floor(player_id/3)  
+    }
+}
 /*
 
   
