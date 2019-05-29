@@ -5,8 +5,46 @@ import numpy as np
 game state struct
 - players: player struct
 - turn: player, 0 to 5, whose turn it is
+*/
 
+/*
+ * State class
+ * - players: set of player structs
+ * - turn:
+ * - bingosT1:
+ * - bingosT2:
+ */
+class State {
+    constructor(players, turn, bingosT1, bingosT2) {
+        players = new Player(/*TODO*/)
+        // TODO: other code
 
+        this.players = players
+        this.turn = 0
+        this.bingosT1 = 0
+        this.bingosT2 = 0
+    }
+    
+    play() {
+
+    }
+    
+    call() {
+
+    }
+    
+    terminate() {
+
+    }
+
+    bingo() {
+
+    }
+
+    printCards() {
+
+    }
+}
 /*
 class State:
     def __init__(self):
